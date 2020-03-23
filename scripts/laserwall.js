@@ -15,6 +15,7 @@ var linkBx = []
 var linkBy = []
 
 
+
 var t1 = null
 
 var t2 = null
@@ -177,6 +178,8 @@ const laserwall = extendContent(Block, "laserwall", {
         //}
 
         //iteration 4: IN TESTING, FAILED ONCE
+
+        
         if (linkAx.length == 0) {
             activated = false
         }
@@ -194,10 +197,10 @@ const laserwall = extendContent(Block, "laserwall", {
             theta_radians = Math.atan2(delta_y, delta_x)
 
             dist = Math.sqrt(Math.pow(Math.abs(delta_x), 2) + Math.pow(Math.abs(delta_y), 2))
-            print("got here")
+            
                 
             Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), tile.drawx(), tile.drawy(), 180 + (theta_radians * (180 / Math.PI)), 1, dist / 20)
-            print("got behind")
+            
         }
     }
 }
