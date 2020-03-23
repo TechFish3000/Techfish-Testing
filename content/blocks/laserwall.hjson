@@ -1,0 +1,14 @@
+localizedName: "Laser Wall"
+description: "A player-activatable block that creates a laser i guess."
+
+category: turret
+size: 1
+
+update: true
+solid: true
+
+configurable: true
+
+requirements: [ "graphite/75"
+                "titanium/30" ]
+
