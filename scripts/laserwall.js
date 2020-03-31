@@ -1,9 +1,8 @@
-//this is NOT the complete definition for this block! see content/blocks/scatter-silo.hjson for the stats and other properties.
-
-//create a simple shockwave effect
 
 var linked = false
+
 var linking = false
+
 var activated = false
 
 var linkerx = 0
@@ -14,7 +13,7 @@ var linkAy = []
 var linkBx = []
 var linkBy = []
 
-
+var pauseframe = 0
 
 var t1 = null
 
@@ -25,10 +24,12 @@ var delta_x
 var delta_y
 var theta_radians
 
-var fr = 0;
+var fr = 0
 
+var shotsleft = new Array()
 
-
+const maxshots = 100
+const shotsperitem = 20
 //create the block type
 
 const laserwall = extendContent(Block, "laserwall", {
@@ -57,12 +58,13 @@ const laserwall = extendContent(Block, "laserwall", {
             }
             else {
                 linking = false
-                
+
 
                 linkAx.push(linkerx)
                 linkAy.push(linkery)
                 linkBx.push(tile.x)
                 linkBy.push(tile.y)
+                shotsleft.push(0)
                 linkerx = 0
                 linkery = 0
                 print("link complete between " + linkAx[linkAx.length - 1] + ", " + linkAy[linkAy.length - 1] + " and " + linkBx[linkBx.length - 1] + ", " + linkBy[linkBy.length - 1])
@@ -93,7 +95,7 @@ const laserwall = extendContent(Block, "laserwall", {
         table.addImageButton(Icon.downOpen, Styles.clearTransi, run(() => {
 
             print("deleted link between " + linkAx.pop() + ", " + linkAy.pop() + " and " + linkBx.pop() + ", " + linkBy.pop())
-            
+            shotsleft.pop()
 
 
 
@@ -108,20 +110,20 @@ const laserwall = extendContent(Block, "laserwall", {
 
     //configured(tile, value) {
 
-        //make sure this silo has the items it needs to fire
+    //make sure this silo has the items it needs to fire
 
-        //print("value: " + value)
-        //print("tile: " + tile)
-        //print("ho")
+    //print("value: " + value)
+    //print("tile: " + tile)
+    //print("ho")
 
-        //if (t == 1 && linked) {
-        //let delta_x = linkerx - tile.entity.x
-        //let delta_y = linkery - tile.entity.y
-        //theta_radians = Math.atan2(delta_y, delta_x)
-        //dist = Math.sqrt(Math.pow(Math.abs(linkerx - tile.entity.x), 2) + Math.pow(Math.abs(delta_y = linkery - tile.entity.y), 2))
+    //if (t == 1 && linked) {
+    //let delta_x = linkerx - tile.entity.x
+    //let delta_y = linkery - tile.entity.y
+    //theta_radians = Math.atan2(delta_y, delta_x)
+    //dist = Math.sqrt(Math.pow(Math.abs(linkerx - tile.entity.x), 2) + Math.pow(Math.abs(delta_y = linkery - tile.entity.y), 2))
 
 
-        //}
+    //}
 
 
 
@@ -131,76 +133,39 @@ const laserwall = extendContent(Block, "laserwall", {
     //override update event
 
     update(tile) {
-        //print(tile)
-        // iteration 1: FAILED
-        //if (linked && tile.entity.x != linkerx && tile.entity.y != linkery) {
-        //    Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), tile.drawx(), tile.drawy(), theta_radians * (180 / Math.PI), 1, dist / 150)
-        //    print("updated " + tile)
-        //}
-
-        // iteration 2: PARTIALLY SUCCEEDED
-        //if (activated && fr % 5 == 0) {
-        //    print("did")
-        //    for (var i = 0; i < linkA.length; i++) {
-
-        //        delta_x = linkA[i][0] - linkB[i][0]
-
-        //        delta_y = linkA[i][1] - linkB[i][1]
-
-        //        theta_radians = Math.atan2(delta_y, delta_x)
-
-        //        dist = Math.sqrt(Math.pow(Math.abs(delta_x), 2) + Math.pow(Math.abs(delta_y), 2))
-        //        print("got here")
-        //        print(linkA[i])
-        //        print(linkB[i])
-
-        //        Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), linkA[i][0], linkA[i][1], theta_radians * (180 / Math.PI), 1, dist / 150)
-        //    }
-        //    fr = 0
-        //}
-        //fr++
-
-        // iteration 3: FAILED
-        //for (i = 0; i < linkA.length; i++) {
-        //    if (linkA[i][0] == tile.x && linkA[i][1] == tile.y) {
-        //        delta_x = linkA[i][0] - linkB[i][0]
-
-        //        delta_y = linkA[i][1] - linkB[i][1]
-
-        //        theta_radians = Math.atan2(delta_y, delta_x)
-
-        //        dist = Math.sqrt(Math.pow(Math.abs(delta_x), 2) + Math.pow(Math.abs(delta_y), 2))
-        //        print("got here")
-        //        print(linkA[i])
-        //        print(linkB[i])
-        //        Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), tile.x, tile.y, theta_radians * (180 / Math.PI), 1, dist / 150)
-        //    }
-        //}
-
-        //iteration 4: IN TESTING, FAILED ONCE
 
         
-        if (linkAx.length == 0) {
+
+
+        if (linkAx.length == 0 && activated) {
             activated = false
         }
-        
 
-        
         t1 = linkAx.indexOf(tile.x)
         t2 = linkAy.indexOf(tile.y)
-        if (t1 != -1 && t2 != -1 && t1 == t2 && activated) {
+        if (this.shotsleft > 0 && !pauseframe) {
             
-            delta_x = linkAx[t1] - linkBx[t1]
-            
-            delta_y = linkAy[t2] - linkBy[t2]
+            if (t1 != -1 && t2 != -1 && t1 == t2 && activated) {
 
-            theta_radians = Math.atan2(delta_y, delta_x)
+                delta_x = linkAx[t1] - linkBx[t1]
 
-            dist = Math.sqrt(Math.pow(Math.abs(delta_x), 2) + Math.pow(Math.abs(delta_y), 2))
-            
-                
-            Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), tile.drawx(), tile.drawy(), 180 + (theta_radians * (180 / Math.PI)), 1, dist / 20)
-            
+                delta_y = linkAy[t2] - linkBy[t2]
+
+                theta_radians = Math.atan2(delta_y, delta_x)
+
+                dist = Math.sqrt(Math.pow(Math.abs(delta_x), 2) + Math.pow(Math.abs(delta_y), 2))
+
+
+                Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), tile.drawx(), tile.drawy(), 180 + (theta_radians * (180 / Math.PI)), 1, dist / 20)
+
+            }
+        }
+        else if (pauseframe) {
+            pauseframe = false
+        }
+        if (tile.entity.cons.valid() && shotsleft[t1] < maxshots - shotsperitem + 1 && t1 == t2 && t2 != -1) {
+            shotsleft[t1] += shotsperitem
+            tile.entity.cons.trigger()
         }
     }
 }

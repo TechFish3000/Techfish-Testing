@@ -1,7 +1,7 @@
-localizedName: "Laser Wall"
-description: "A player-activatable block that creates a laser i guess."
+localizedName: "Item Teleporter"
+description: "A player-activatable block that teleports stuff i guess."
 
-category: turret
+category: distribution
 size: 1
 
 update: true
@@ -11,11 +11,11 @@ configurable: true
 
 requirements: [ "graphite/75"
                 "titanium/30" ]
-
 consumes: {
   items: {
     items: [
-      copper/1
+      scrap/10
     ]
   }
 }
+

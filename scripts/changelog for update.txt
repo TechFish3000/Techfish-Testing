@@ -1,0 +1,47 @@
+//print(tile)
+        // iteration 1: FAILED
+        //if (linked && tile.entity.x != linkerx && tile.entity.y != linkery) {
+        //    Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), tile.drawx(), tile.drawy(), theta_radians * (180 / Math.PI), 1, dist / 150)
+        //    print("updated " + tile)
+        //}
+
+        // iteration 2: PARTIALLY SUCCEEDED
+        //if (activated && fr % 5 == 0) {
+        //    print("did")
+        //    for (var i = 0; i < linkA.length; i++) {
+
+        //        delta_x = linkA[i][0] - linkB[i][0]
+
+        //        delta_y = linkA[i][1] - linkB[i][1]
+
+        //        theta_radians = Math.atan2(delta_y, delta_x)
+
+        //        dist = Math.sqrt(Math.pow(Math.abs(delta_x), 2) + Math.pow(Math.abs(delta_y), 2))
+        //        print("got here")
+        //        print(linkA[i])
+        //        print(linkB[i])
+
+        //        Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), linkA[i][0], linkA[i][1], theta_radians * (180 / Math.PI), 1, dist / 150)
+        //    }
+        //    fr = 0
+        //}
+        //fr++
+
+        // iteration 3: FAILED
+        //for (i = 0; i < linkA.length; i++) {
+        //    if (linkA[i][0] == tile.x && linkA[i][1] == tile.y) {
+        //        delta_x = linkA[i][0] - linkB[i][0]
+
+        //        delta_y = linkA[i][1] - linkB[i][1]
+
+        //        theta_radians = Math.atan2(delta_y, delta_x)
+
+        //        dist = Math.sqrt(Math.pow(Math.abs(delta_x), 2) + Math.pow(Math.abs(delta_y), 2))
+        //        print("got here")
+        //        print(linkA[i])
+        //        print(linkB[i])
+        //        Calls.createBullet(Bullets.flakExplosive, tile.getTeam(), tile.x, tile.y, theta_radians * (180 / Math.PI), 1, dist / 150)
+        //    }
+        //}
+
+        //iteration 4: IN TESTING, FAILED ONCE
