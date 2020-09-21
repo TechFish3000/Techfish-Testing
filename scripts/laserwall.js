@@ -134,9 +134,6 @@ const laserwall = extendContent(Block, "laserwall", {
 
     update(tile) {
 
-        
-
-
         if (linkAx.length == 0 && activated) {
             activated = false
         }
@@ -144,7 +141,7 @@ const laserwall = extendContent(Block, "laserwall", {
         t1 = linkAx.indexOf(tile.x)
         t2 = linkAy.indexOf(tile.y)
         if (this.shotsleft > 0 && !pauseframe) {
-            
+
             if (t1 != -1 && t2 != -1 && t1 == t2 && activated) {
 
                 delta_x = linkAx[t1] - linkBx[t1]

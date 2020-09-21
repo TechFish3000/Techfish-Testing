@@ -5,11 +5,11 @@ var DebugMode = true
 // Bare mode, will only load the scripts in Barescripts[]
 
 var BareMode = true
-var BareScripts = ["testblock"]
+var BareScripts = ["multiblocktesting"]
 
 // scripts to be loaded
 
-var Scripts = ["laserwall", "teleporter"]
+var Scripts = ["laserwall", "teleporter", "testblock"]
 
 
 if (!BareMode) {
